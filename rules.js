@@ -93,11 +93,9 @@ class Room extends Scene {
 
     interactions(inventory, roomItems)
     {
-        if ("cat2" in inventory) {
-            if (roomItems.includes("coffee")) {
-                this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table. You have take a moment of silence for the cup of coffee.");            
+        if ("cat2" in inventory && roomItems.includes("coffee")) {
+            this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table. You have take a moment of silence for the cup of coffee.");            
         }
-    }
     }
 
     endGame(player)
