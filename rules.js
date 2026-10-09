@@ -98,6 +98,7 @@ class Room extends Scene {
                 this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table. You have take a moment of silence for the cup of coffee.");            
         }
     }
+    }
 
     endGame(player)
     {
