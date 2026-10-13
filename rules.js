@@ -47,6 +47,10 @@ class Room extends Scene {
         {
             this.endGame(player);
         }
+        else if (roomData.requires && !(roomData.requires in player.items))
+        {
+            this.engine.show("You need " + this.engine.itemString(roomData.requires) + " to enter this room.");
+        }
         else
         {
             this.engine.addInteraction("Do something", "x", "y");
