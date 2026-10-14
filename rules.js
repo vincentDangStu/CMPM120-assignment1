@@ -16,39 +16,33 @@ class Room extends Scene {
         this.x = x;
         this.y = y;
         var roomData = this.engine.storyData.rooms[x + "_" + y];
-        if (roomData.requires && !(roomData.requires in player.items))
+        this.engine.showCaption(roomData.name);
+        this.engine.show(roomData.description);
+        this.interactions(player.items, roomData.items);
+        player.steps += 1;
+        if (roomData.items.length > 0)
         {
-            this.engine.show("You need " + this.engine.itemString(roomData.requires) + " to enter this room.");
+            var items = "Items collected: ";
+            for(var item of roomData.items)
+            {
+                items += this.engine.itemString(item) + " ";
+                if (player.items[item])
+                {
+                    player.items[item] += 1;
+                }
+                else
+                {
+                    player.items[item] = 1;
+                }
+            }
+            roomData.items = [];
+            this.engine.show(items);
         }
         else
         {
-            this.engine.showCaption(roomData.name);
-            this.engine.show(roomData.description);
-            this.interactions(player.items, roomData.items);
-            player.steps += 1;
-            if (roomData.items.length > 0)
-            {
-                var items = "Items collected: ";
-                for(var item of roomData.items)
-                {
-                    items += this.engine.itemString(item) + " ";
-                    if (player.items[item])
-                    {
-                        player.items[item] += 1;
-                    }
-                    else
-                    {
-                        player.items[item] = 1;
-                    }
-                }
-                roomData.items = [];
-                this.engine.show(items);
-            }
-            else
-            {
-                this.engine.show("No items left to collect. Have you already been here?");
-            }
+            this.engine.show("No items left to collect. Have you already been here?");
         }
+
         if (this.engine.storyData.exit.x == x && this.engine.storyData.exit.y == y)
         {
             this.endGame(player);
@@ -60,26 +54,46 @@ class Room extends Scene {
             // row 1
             this.engine.addTextCell();
             if (this.engine.storyData.rooms[x+"_"+(y-1)])
-                this.engine.addNavigationCell("Go North", x, y-1, player);
+            {
+                if(this.engine.storyData.rooms[x+"_"+(y-1)].requires && !(this.engine.storyData.rooms[x+"_"+(y-1)].requires in player.items))
+                    this.engine.addTextCell("Go North (requires " + this.engine.itemString(this.engine.storyData.rooms[x+"_"+(y-1)].requires) + ")");
+                else
+                    this.engine.addNavigationCell("Go North", x, y-1, player);
+            }
             else
                 this.engine.addTextCell();
             this.engine.addTextCell();
 
             // row 2
             if (this.engine.storyData.rooms[(x-1)+"_"+y])
+            {   
+                if(this.engine.storyData.rooms[(x-1)+"_"+y].requires && !(this.engine.storyData.rooms[(x-1)+"_"+y].requires in player.items))
+                    this.engine.addTextCell("Go West (requires " + this.engine.itemString(this.engine.storyData.rooms[(x-1)+"_"+y].requires) + ")");
+                else
                 this.engine.addNavigationCell("Go West", x-1, y, player);
+            }
             else
                 this.engine.addTextCell();
             this.engine.addTextCell("You are here");
             if (this.engine.storyData.rooms[(x+1)+"_"+y])
-                this.engine.addNavigationCell("Go East", x+1, y, player);
+            {
+                if(this.engine.storyData.rooms[(x+1)+"_"+y].requires && !(this.engine.storyData.rooms[(x+1)+"_"+y].requires in player.items))
+                    this.engine.addTextCell("Go East (requires " + this.engine.itemString(this.engine.storyData.rooms[(x+1)+"_"+y].requires) + ")");
+                else
+                    this.engine.addNavigationCell("Go East", x+1, y, player);
+            }
             else
                 this.engine.addTextCell();
 
             // row 3
             this.engine.addTextCell();
             if (this.engine.storyData.rooms[x+"_"+(y+1)])
-                this.engine.addNavigationCell("Go South", x, y+1, player);
+            {
+                if(this.engine.storyData.rooms[x+"_"+(y+1)].requires && !(this.engine.storyData.rooms[x+"_"+(y+1)].requires in player.items))
+                    this.engine.addTextCell("Go South (requires " + this.engine.itemString(this.engine.storyData.rooms[x+"_"+(y+1)].requires) + ")");
+                else
+                    this.engine.addNavigationCell("Go South", x, y+1, player);
+            }
             else
                 this.engine.addTextCell();
             this.engine.addTextCell();
