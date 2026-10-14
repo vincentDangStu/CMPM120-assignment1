@@ -16,40 +16,42 @@ class Room extends Scene {
         this.x = x;
         this.y = y;
         var roomData = this.engine.storyData.rooms[x + "_" + y];
-        this.engine.showCaption(roomData.name);
-        this.engine.show(roomData.description);
-        this.interactions(player.items, roomData.items);
-        player.steps += 1;
-        if (roomData.items.length > 0)
+        if (roomData.requires && !(roomData.requires in player.items))
         {
-            var items = "Items collected: ";
-            for(var item of roomData.items)
-            {
-                items += this.engine.itemString(item) + " ";
-                if (player.items[item])
-                {
-                    player.items[item] += 1;
-                }
-                else
-                {
-                    player.items[item] = 1;
-                }
-            }
-            roomData.items = [];
-            this.engine.show(items);
+            this.engine.show("You need " + this.engine.itemString(roomData.requires) + " to enter this room.");
         }
         else
         {
-            this.engine.show("No items left to collect. Have you already been here?");
+            this.engine.showCaption(roomData.name);
+            this.engine.show(roomData.description);
+            this.interactions(player.items, roomData.items);
+            player.steps += 1;
+            if (roomData.items.length > 0)
+            {
+                var items = "Items collected: ";
+                for(var item of roomData.items)
+                {
+                    items += this.engine.itemString(item) + " ";
+                    if (player.items[item])
+                    {
+                        player.items[item] += 1;
+                    }
+                    else
+                    {
+                        player.items[item] = 1;
+                    }
+                }
+                roomData.items = [];
+                this.engine.show(items);
+            }
+            else
+            {
+                this.engine.show("No items left to collect. Have you already been here?");
+            }
         }
-
         if (this.engine.storyData.exit.x == x && this.engine.storyData.exit.y == y)
         {
             this.endGame(player);
-        }
-        else if (roomData.requires && !(roomData.requires in player.items))
-        {
-            this.engine.show("You need " + this.engine.itemString(roomData.requires) + " to enter this room.");
         }
         else
         {
