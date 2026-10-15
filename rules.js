@@ -179,6 +179,7 @@ class Room extends Scene {
         }
         this.engine.show(items);
         this.engine.show("Total steps taken: " + player.steps);
+        this.engine.show("Total interactions: " + player.interactionsCounter);
         let score = (Object.keys(player.items).length + player.interactionsCounter) / player.steps;
         this.engine.show("Your score is: " + score);
         this.engine.show(this.engine.storyData.credits);
