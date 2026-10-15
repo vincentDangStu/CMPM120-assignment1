@@ -7,7 +7,7 @@
         "0_0": {
             "name": "Entrance",
             "description": "Welcome to the entrance.",
-            "items": ["cat2", "banana", "coconut"]
+            "items": ["cat2", "banana", "coconut", "coin"]
         },
         "1_0": {
             "name": "Hallway",
@@ -17,7 +17,7 @@
         "0_1": {
             "name": "The sitting room",
             "description": "Two couches next to a coffee table.",
-            "items": ["coffee", "newspaper", "key"]
+            "items": ["coffee", "newspaper", "key", "slot_machine"]
         },
         "2_0": {
             "name": "Main Hall",
