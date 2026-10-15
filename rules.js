@@ -49,7 +49,6 @@ class Room extends Scene {
         }
         else
         {
-            this.engine.addInteraction("Do something", "x", "y");
             // navigation cells come in a 3x3 grid
             // row 1
             this.engine.addTextCell();
@@ -99,6 +98,7 @@ class Room extends Scene {
             this.engine.addTextCell();
         }
         this.engine.transition();
+        this.player = player;
     }
     handleNavigation(x,y,player) {
         this.engine.gotoScene(Room, x, y, player);
@@ -106,8 +106,12 @@ class Room extends Scene {
 
     handleInteraction(a,b)
     {
-        if (a == "x" && b == "y") {
-            this.engine.show("Interaction successful!");
+        if (a == "cat2" && b == "coffee")
+        {
+            this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table.");
+            this.engine.show("You have take a moment of silence for the cup of coffee.");
+            this.player.items["coffee"] -= 1;
+            this.engine.show("You have lost " + this.engine.itemString("coffee") + ".");    
         }
         if (a == "insert_coin" && b == "slot_machine")
             {
@@ -116,13 +120,14 @@ class Room extends Scene {
                 if (rng < 0.5) 
                     {
                     this.engine.show("You win! The slot machine dispenses a prize of that doubles your coins.");
-                    this.Player.items["coin"] *= 2;
+                    this.player.items["coin"] += 2;
                     } 
                 else 
                     {
                     this.engine.show("You lose! Better luck next time.");
-                    this.Player.items["coin"] -= 1;
+                    this.player.items["coin"] -= 1;
                     }
+                this.engine.show("You now have " + this.player.items["coin"] + this.engine.itemString("coin") + ".");
             }
         if (a == "rub" && b == "genie_lamp")
             {
@@ -136,26 +141,26 @@ class Room extends Scene {
         if (a == "wish_riches" && b == "genie_lamp")
             {
                 this.engine.show("The genie grants you great riches!");
-                this.Player.items["coin"] += 10;
+                this.player.items["coin"] += 10;
+                this.engine.show("You have gained " + this.player.items["coin"] + this.engine.itemString("coin") + ".");
             }
         if (a == "wish_happiness" && b == "genie_lamp")
             {
                 this.engine.show("The genie grants you happiness! Although it isn't exactly what you expected, you feel a sense of contentment.");
-                this.Player.items["beer_mug"] += 100;
+                this.player.items["beer_mug"] = 10;
+                this.engine.show("You have gained " + this.player.items["beer_mug"] + this.engine.itemString("beer_mug") + ".");
             }
         if (a == "wish_more" && b == "genie_lamp")
             {
-            this.engine.show("The genie looks at you with great disappointment and disappears. You have wasted your wish and gained nothing.");
+            this.engine.show("The genie looks at you with great disappointment and disappears.");
+            this.engine.show("You have wasted your wish and gained nothing.");
             }
     }
 
     interactions(inventory, roomItems)
     {
         if ("cat2" in inventory && roomItems.includes("coffee")) 
-            {
-            this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table.");
-            this.engine.show("You have take a moment of silence for the cup of coffee.");            
-            }
+            this.engine.addInteraction("UNLEASH THE CAT", "cat2", "coffee");        
         if ("coin" in inventory && roomItems.includes("slot_machine")) 
             this.engine.addInteraction("Insert coin into slot machine", "insert_coin", "slot_machine");
         if ("palm_up_hand" in inventory && roomItems.includes("genie_lamp")) 

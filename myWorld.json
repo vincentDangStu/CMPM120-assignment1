@@ -22,7 +22,7 @@
         "2_0": {
             "name": "Main Hall",
             "description": "The main area of the house",
-            "items": ["cat2", "vampire", "telephone", "nazar_amulet"],
+            "items": ["cat2", "vampire", "telephone", "nazar_amulet", "slot_machine"],
             "requires": ["key"]
         },
         "0_2": {
