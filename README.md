@@ -53,3 +53,12 @@ When the player chooses any one navigation option, the entire navigation grid is
 #### Fields:
 - `engine`: An instance of `Engine`, with the methods described above.
 - `storyData`: The result of parsing the JSON file at `pathToStoryJson`.
+
+### Additions (edited by: Vincent Dang)
+#### Item Interactions:
+- `Slot Machine`: When a coin is present in the player's inventory and a slot machine is in the room, you are able to wager your coin to gain a 50% chance to gain an additional coin. The latter 50% has the downside of potentially losing your wagerred coin.
+- `Unleashed Cat`: When a 'cat2' within the player's inventory is in the same room as a coffee mug, you are able to "unleash" the cat, causing the coffee mug to be lost.
+- `A Genie's 3 Wishes`: When a 'palm_up_hand' within the player's inventory is in the same room as the 'genie_lamp', a genie will appear and grant the player 3 wishes resulting 10 coins, 10 beer mugs, or nothing at all.
+
+#### Improved Scoring:
+- `Interactions Counter`: An interactions counter is added and tracked to increase the player's score by the same amount as picking up items.
