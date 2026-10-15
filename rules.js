@@ -162,7 +162,7 @@ class Room extends Scene {
     {
         if ("cat2" in inventory && roomItems.includes("coffee")) 
             this.engine.addInteraction("UNLEASH THE CAT", "cat2", "coffee");        
-        if ("coin" in inventory && roomItems.includes("slot_machine")) 
+        if ("coin" in inventory && roomItems.includes("slot_machine") && inventory["coin"] > 0) 
             this.engine.addInteraction("Insert coin into slot machine", "insert_coin", "slot_machine");
         if ("palm_up_hand" in inventory && roomItems.includes("genie_lamp")) 
             this.engine.addInteraction("Rub the genie lamp", "rub", "genie_lamp");
