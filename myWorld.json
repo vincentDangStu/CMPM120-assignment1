@@ -12,7 +12,7 @@
         "1_0": {
             "name": "Hallway",
             "description": "An almost empty hallway.",
-            "items": ["bone"]
+            "items": ["bone","palm_up_hand"]
         },
         "0_1": {
             "name": "The sitting room",
@@ -28,7 +28,7 @@
         "0_2": {
             "name": "Kitchen",
             "description": "A very fancy kitchen. It smells like pine cones for some reason.",
-            "items": ["cat2", "broccoli", "pie", "pretzel"],
+            "items": ["cat2", "broccoli", "pie", "pretzel","genie_lamp"],
             "requires": ["nazar_amulet"]
         },
         "1_2": {

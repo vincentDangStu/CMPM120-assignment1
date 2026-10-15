@@ -124,17 +124,42 @@ class Room extends Scene {
                     this.Player.items["coin"] -= 1;
                     }
             }
+        if (a == "rub" && b == "genie_lamp")
+            {
+                this.engine.show("You rub the genie lamp and a genie appears!");
+                this.engine.show("The genie will grant you three of your greatest wishes.");
+
+                this.engine.addInteraction("Great riches", "wish_riches", "genie_lamp");
+                this.engine.addInteraction("Happiness", "wish_happiness", "genie_lamp");
+                this.engine.addInteraction("More Wishes", "wish_more", "genie_lamp");
+            }
+        if (a == "wish_riches" && b == "genie_lamp")
+            {
+                this.engine.show("The genie grants you great riches!");
+                this.Player.items["coin"] += 10;
+            }
+        if (a == "wish_happiness" && b == "genie_lamp")
+            {
+                this.engine.show("The genie grants you happiness! Although it isn't exactly what you expected, you feel a sense of contentment.");
+                this.Player.items["beer_mug"] += 100;
+            }
+        if (a == "wish_more" && b == "genie_lamp")
+            {
+            this.engine.show("The genie looks at you with great disappointment and disappears. You have wasted your wish and gained nothing.");
+            }
     }
 
     interactions(inventory, roomItems)
     {
-        if ("cat2" in inventory && roomItems.includes("coffee")) {
+        if ("cat2" in inventory && roomItems.includes("coffee")) 
+            {
             this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table.");
             this.engine.show("You have take a moment of silence for the cup of coffee.");            
-        }
-        if ("coin" in inventory && roomItems.includes("slot_machine")) {
+            }
+        if ("coin" in inventory && roomItems.includes("slot_machine")) 
             this.engine.addInteraction("Insert coin into slot machine", "insert_coin", "slot_machine");
-        }
+        if ("palm_up_hand" in inventory && roomItems.includes("genie_lamp")) 
+            this.engine.addInteraction("Rub the genie lamp", "rub", "genie_lamp");
     }
 
     endGame(player)
