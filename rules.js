@@ -121,7 +121,7 @@ class Room extends Scene {
                 if (rng < 0.5) 
                     {
                     this.engine.show("You win! The slot machine dispenses a prize of that doubles your coins.");
-                    this.player.items["coin"] += 2;
+                    this.player.items["coin"] += 1;
                     } 
                 else 
                     {
