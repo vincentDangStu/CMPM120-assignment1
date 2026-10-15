@@ -6,13 +6,14 @@ class Start extends Scene {
 
     handleNavigation() {
         var start = this.engine.storyData.start;
-        this.engine.gotoScene(Room, start.x, start.y, {"items": {}, "steps": 0});
+        this.engine.gotoScene(Room, start.x, start.y, {"items": {}, "steps": 0, "interactionsCounter": 0});
     }
 }
 
 class Room extends Scene {
     enter(x,y,player)
     {
+        this.player = player;
         this.x = x;
         this.y = y;
         var roomData = this.engine.storyData.rooms[x + "_" + y];
@@ -98,7 +99,6 @@ class Room extends Scene {
             this.engine.addTextCell();
         }
         this.engine.transition();
-        this.player = player;
     }
     handleNavigation(x,y,player) {
         this.engine.gotoScene(Room, x, y, player);
@@ -106,6 +106,7 @@ class Room extends Scene {
 
     handleInteraction(a,b)
     {
+        this.player.interactionsCounter += 1;
         if (a == "cat2" && b == "coffee")
         {
             this.engine.show("Your cat is unable to resist its primal instincts and knocks down the cup of coffee from the table.");
@@ -170,6 +171,7 @@ class Room extends Scene {
     endGame(player)
     {
         this.engine.show("You have reached the exit! Congratulations!");
+        console.log(this.player.interactionsCounter);
         var items = "Items collected:";
         for(var item in player.items)
         {
@@ -177,7 +179,7 @@ class Room extends Scene {
         }
         this.engine.show(items);
         this.engine.show("Total steps taken: " + player.steps);
-        let score = Object.keys(player.items).length /player.steps;
+        let score = (Object.keys(player.items).length + player.interactionsCounter) / player.steps;
         this.engine.show("Your score is: " + score);
         this.engine.show(this.engine.storyData.credits);
     }
